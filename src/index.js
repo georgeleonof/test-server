@@ -36,16 +36,28 @@ app.get('/', (req, res) => {
   res.send(ads);
 });
 
-app.get('/bighouse', (req, res) => {
+app.get('/house', (req, res) => {
     let data = [];
+    const rooms = req.query.rooms;
     ads.forEach((house) => {
-        if (house.rooms >= 2) {
+        if (house.rooms >= rooms) {
             data.push(house);
         }
     });
     res.send(data);
 });
 
+app.post('/housePost', async (req, res) => {
+    const param = req.body;
+    let data = [];
+    ads.forEach((house) => {
+        if (house.rooms >= param.rooms) {
+            data.push(house);
+        }
+    });
+    res.send(data);
+
+});
 // starting the server
 app.listen(8080, () => {
   console.log('listening on port 3001');
